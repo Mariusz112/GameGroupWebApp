@@ -84,17 +84,17 @@ namespace RunGroupWebApp.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ModelState.AddModelError("", "Failed to edit club");
+                ModelState.AddModelError("", "Failed to edit race");
                 return View("Error", raceVM);
             }
 
-            var raceClub = await _raceRepository.GetByIdAsyncNoTracking(id);
+            var userRace = await _raceRepository.GetByIdAsyncNoTracking(id);
 
-            if (raceClub != null)
+            if (userRace != null)
             {
                 try
                 {
-                    await _photoService.DeletePhotoAsync(raceClub.Image);
+                    await _photoService.DeletePhotoAsync(userRace.Image);
                 }
                 catch (Exception ex)
                 {
