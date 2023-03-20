@@ -1,8 +1,9 @@
-﻿
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using RunGroupWebApp.Interfaces;
 using RunGroupWebApp.Models;
 using RunGroupWebApp.ViewModels;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+
 
 namespace RunGroupWebApp.Controllers
 {
@@ -17,6 +18,7 @@ namespace RunGroupWebApp.Controllers
 
             _clubRepository = clubRepository;
             _photoService = photoService;
+
         }
         public async Task<IActionResult> Index()
         {
@@ -31,13 +33,19 @@ namespace RunGroupWebApp.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            var curUserId = HttpContext.User.GetUserId();
+            //Guid
+            var createClubViewModel = new CreateClubViewModel
+            {
+                AppUserId = curUserId
+            };
+            return View(createClubViewModel);
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(CreateClubViewModel clubVM)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 var result = await _photoService.AddPhotoAsync(clubVM.Image);
 
@@ -46,6 +54,7 @@ namespace RunGroupWebApp.Controllers
                     Title = clubVM.Title,
                     Description = clubVM.Description,
                     Image = result.Url.ToString(),
+                    AppUserId = clubVM.AppUserId,
                     Address = new Address
                     {
                         Street = clubVM.Address.Street,

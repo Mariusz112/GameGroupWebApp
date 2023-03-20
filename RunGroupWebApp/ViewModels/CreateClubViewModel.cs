@@ -1,6 +1,4 @@
-﻿
-
-using RunGroupWebApp.Data.Enum;
+﻿using RunGroupWebApp.Data.Enum;
 using RunGroupWebApp.Models;
 
 namespace RunGroupWebApp.ViewModels
