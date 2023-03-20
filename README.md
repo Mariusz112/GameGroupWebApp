@@ -1,1 +1,1 @@
-(https://github.com/Mariusz112/GameGroupWebApp/files/11022145/Game.Groups.pdf)
+[Game Groups.pdf](https://github.com/Mariusz112/GameGroupWebApp/files/11022157/Game.Groups.pdf)
